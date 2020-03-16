@@ -9,6 +9,12 @@ A wrapper around the <a href="https://docs.aws.amazon.com/AmazonRDS/latest/Auror
 
 Not an AWS endorsed project - used at <a href="stavvy.com" target="_blank">Stavvy</a> for managing database queries for some services.
 
+### Installation
+
+<pre>
+    pip install rds-data-dao
+</pre>
+
 ### Example usages.
 
 1. Provide cmd and data arguments to the crud methods on the RdsDataDao object. 
