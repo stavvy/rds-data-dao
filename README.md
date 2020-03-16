@@ -1,9 +1,9 @@
 [![](https://img.shields.io/pypi/v/rds_data_dao.svg)](https://pypi.org/project/rds_data_dao/)
 
 # RdsDataDao
----
 
-A wrapper around the RDS Data API offering query escaping and automatic parameterization.
+A wrapper around the <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html" target="_blank">RDS Data API</a>
+ offering query escaping and automatic parameterization.
 
 ## Warning
 
@@ -14,9 +14,9 @@ Not an AWS endorsed project - used at <a href="stavvy.com" target="_blank">Stavv
 1. Provide cmd and data arguments to the crud methods on the RdsDataDao object. 
 It will automatically cast and convert the arguments to parameterized form.
 
-2. Use %s for any parameterized argument (except arrays).
+2. Use `%s` in the `cmd` format string for any parameterized argument (except arrays).
 
-2. Use %s::type to cast arguments, for example %s::json, will cast the argument to json.
+2. Use `%s::type` to cast arguments, for example `%s::json`, will cast the argument to json.
 
 ex usage:
 
