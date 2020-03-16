@@ -1,8 +1,13 @@
+[![](https://img.shields.io/pypi/v/rds_data_dao.svg)](https://pypi.org/project/rds_data_dao/)
+
 # RdsDataDao
 ---
 
 A wrapper around the RDS Data API offering query escaping and automatic parameterization.
 
+## Warning
+
+Not an AWS endorsed project - used at <a href="stavvy.com" target="_blank">Stavvy</a> for managing database queries for some services.
 
 ### Example usages.
 
@@ -16,10 +21,9 @@ It will automatically cast and convert the arguments to parameterized form.
 ex usage:
 
 <pre>
-def get_bank():
     cmd = "select * from banks where id = %s"
     data = [bank_id]
-    bank = self.get_single_result(cmd, data)
+    bank = dao.get_single_result(cmd, data)
     return bank
 </pre>
 
@@ -27,7 +31,7 @@ For arrays, `make_list` from `db_util` should be used as arrays are not natively
 
 <pre>
     cmd = "select bank_id from files where id in {}".format(make_list(ids)) # ids is list of integers here.
-    banks = self._get(cmd)
+    banks = dao.get(cmd)
     return banks
 </pre>
 
@@ -77,5 +81,5 @@ maps to:
 
 
 ### References
-<!-- https://medium.com/@bfortuner/python-unit-testing-with-pytest-and-mock-197499c4623c -->
-<!-- https://github.com/lyft/python-blessclient/blob/master/tests/blessclient/bless_lambda_test.py --> 
+* https://medium.com/@bfortuner/python-unit-testing-with-pytest-and-mock-197499c4623c
+* https://github.com/lyft/python-blessclient/blob/master/tests/blessclient/bless_lambda_test.py
