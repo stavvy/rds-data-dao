@@ -160,7 +160,11 @@ def unique_on_key(elements, key):
 def create_update_clause(obj):
     clause = []
     for k, v in obj.items():
-        clause.append("{}='{}'".format(k, stringify_for_data_api_query(v, True)))
+        k = quote_escape(k)
+        if v is None:
+            clause.append("{}=null".format(k))
+        else:
+            clause.append("{}='{}'".format(k, stringify_for_data_api_query(v, True)))
     if not clause:
         return ''
 

@@ -15,6 +15,24 @@ def test_create_update_clause():
     clause = create_update_clause(obj)
     assert clause == "items='5', status='closed'"
 
+def test_create_update_clause_with_nulls():
+    obj = {
+        "items": "",
+        "status": None
+    }
+
+    clause = create_update_clause(obj)
+    assert clause == "items='', status=null"
+
+def test_create_update_clause_escapes():
+    obj = {
+        "\>items;": ">/;",
+        "status/|": ";;;"
+    }
+
+    clause = create_update_clause(obj)
+    assert clause == "%5C%3Eitems%3B='%3E%2F%3B', status%2F|='%3B%3B%3B'"
+
 
 def test_make_list_ints():
     items = [1, 2, 3]
