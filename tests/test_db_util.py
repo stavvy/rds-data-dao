@@ -15,6 +15,7 @@ def test_create_update_clause():
     clause = create_update_clause(obj)
     assert clause == "items='5', status='closed'"
 
+
 def test_create_update_clause_with_nulls():
     obj = {
         "items": "",
@@ -23,6 +24,7 @@ def test_create_update_clause_with_nulls():
 
     clause = create_update_clause(obj)
     assert clause == "items='', status=null"
+
 
 def test_create_update_clause_escapes():
     obj = {
@@ -69,6 +71,29 @@ def test_format_sql():
     res, params = format_sql(s, [])
     assert res == ':name0 :name1::order_types :name2::json'
     assert not params
+
+
+def test_format_with_numeric_string():
+    s = "%s::text"
+    res, params = format_sql(s, ['00045'])
+    assert res == ':name0::text'
+    assert len(params) == 1
+    p = params[0]
+
+    assert p['name'] == 'name0'
+    assert p['value']['stringValue'] == '00045'
+
+
+def test_format_with_numerics():
+    s = "%s::text %s"
+    res, params = format_sql(s, [45, 45.1])
+    assert res == ':name0::text :name1'
+    assert len(params) == 2
+    p0 = params[0]
+    p1 = params[1]
+
+    assert p0['value']['longValue'] == 45
+    assert p1['value']['doubleValue'] == 45.1
 
 
 def test_parse_date_valid():

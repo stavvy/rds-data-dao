@@ -120,25 +120,21 @@ def try_parse_date(s):
 def stringify_for_data_api_query(x, manual_escape=False):
     type_x = type(x)
 
-    if type_x in (bool, list, tuple, bytes):
+    if type_x in (bool, list, tuple, bytes, float, int):
         return x
     elif type_x is dict:
         return json.dumps(x)
     elif x is None:
         return 'null'
 
-    try:
-        v = float(x)
-        return int(v) if v.is_integer() else v
-    except Exception:
-        if manual_escape:
-            v = try_parse_date(x)
-            if v:
-                return str(v)
-            return quote_escape(x)
+    if manual_escape:
+        v = try_parse_date(x)
+        if v:
+            return str(v)
+        return quote_escape(x)
 
-        # Default to string.
-        return str(x)
+    # Default to string.
+    return str(x)
 
 
 def make_list(items):
