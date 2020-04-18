@@ -14,7 +14,11 @@ class RdsDataDao:
         self.cluster_arn = cluster_arn or os.getenv('DB_URL')
         self.secret_arn = secret_arn or os.getenv('DB_CREDENTIALS')
         self.logger = logging.getLogger(kwargs.get('logger_name', db))
-        self.rds_data = boto3.client('rds-data')
+        endpoint_url = os.getenv('DB_ENDPOINT_URL', None)
+        if endpoint_url:
+            self.rds_data = boto3.client('rds-data', endpoint_url=endpoint_url)
+        else:
+            self.rds_data = boto3.client('rds-data')
 
     def __str__(self):
         return '{}: {} {}'.format(self.__class__.__name__, self.db, self.cluster_arn)
@@ -38,8 +42,8 @@ class RdsDataDao:
 
     def transaction_begin(self):
         response = self.rds_data.begin_transaction(resourceArn=self.cluster_arn,
-                                              secretArn=self.secret_arn,
-                                              database=self.db)
+                                                   secretArn=self.secret_arn,
+                                                   database=self.db)
         if 'transactionId' not in response:
             raise Exception('No transaction id found in response', response)
         transaction_id = response['transactionId']
