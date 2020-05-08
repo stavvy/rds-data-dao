@@ -89,3 +89,8 @@ maps to:
 ### References
 * https://medium.com/@bfortuner/python-unit-testing-with-pytest-and-mock-197499c4623c
 * https://github.com/lyft/python-blessclient/blob/master/tests/blessclient/bless_lambda_test.py
+
+### Publishing (internal)
+* python setup.py sdist 
+* twine upload dist/*
+
