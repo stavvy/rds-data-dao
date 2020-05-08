@@ -37,6 +37,13 @@ class RdsDataDao:
         result = self._execute(cmd, data=data)
         return self.get_first(result)
 
+    def get_single_result_object(self, cmd, parsing_class, data=None):
+        result = self._execute(cmd, data=data)
+        single_result = self.get_first(result)
+        if single_result:
+            return parsing_class.parse_obj(single_result)
+        return None
+
     def update(self, cmd, data=None):
         return self._execute(cmd, True, data=data)
 
