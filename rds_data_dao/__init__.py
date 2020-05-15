@@ -30,6 +30,9 @@ class RdsDataDao:
     def get(self, cmd, data=None):
         return self._execute(cmd, data=data)
 
+    def get_objects(self, cmd, parsing_class, data=None):
+        return [parsing_class.parse_obj(item) for item in self._execute(cmd, data=data)]
+
     def delete(self, cmd, data=None):
         self._execute(cmd, False, data)
 
