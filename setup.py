@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='rds_data_dao',
-      version='0.1.8',
+      version='0.1.9',
       description='RDS Data API Wrapper',
       url='https://github.com/stavvy/rds-data-dao',
       author='Chris Buonocore',
