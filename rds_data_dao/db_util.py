@@ -160,8 +160,12 @@ def create_update_clause(obj):
         if v is None:
             clause.append("{}=null".format(k))
         else:
-            clause.append("{}='{}'".format(k, stringify_for_data_api_query(v, True)))
+            clause.append("{}='{}'".format(k, stringify_for_data_api_query(escape_percent(v), True)))
     if not clause:
         return ''
 
     return ', '.join(clause)
+
+    # https://stackoverflow.com/questions/40230546/python-string-percent-sign-escape/40230658
+    def escape_percent(self, value):
+        return value.replace('%', '%%') if isinstance(value, str) else value
