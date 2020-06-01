@@ -153,7 +153,7 @@ def unique_on_key(elements, key):
 
 
 # https://stackoverflow.com/questions/40230546/python-string-percent-sign-escape/40230658
-def escape_percent(self, value):
+def escape_percent(value):
     return value.replace('%', '%%') if isinstance(value, str) else value
 
 
