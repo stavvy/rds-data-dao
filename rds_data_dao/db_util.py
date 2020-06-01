@@ -152,6 +152,11 @@ def unique_on_key(elements, key):
     return list({element.get(key): element for element in elements if element and key in element}.values())
 
 
+# https://stackoverflow.com/questions/40230546/python-string-percent-sign-escape/40230658
+def escape_percent(self, value):
+    return value.replace('%', '%%') if isinstance(value, str) else value
+
+
 # https://realpython.com/prevent-python-sql-injection/
 def create_update_clause(obj):
     clause = []
@@ -165,7 +170,3 @@ def create_update_clause(obj):
         return ''
 
     return ', '.join(clause)
-
-    # https://stackoverflow.com/questions/40230546/python-string-percent-sign-escape/40230658
-    def escape_percent(self, value):
-        return value.replace('%', '%%') if isinstance(value, str) else value
