@@ -97,15 +97,22 @@ def test_format_with_numerics():
 
 
 def test_parse_date_valid():
-    s = '2022-01-24T05:00:00.000Z'
+    s = '2022-06-24T05:00:00.000Z'
     res = try_parse_date(s)
-    assert res
+    # Parse should be successful.
+    assert res.month == 6
 
+def test_try_parse_date_strip_ms():
+    s = '2020-06-03 03:00:00.856'
+    res = try_parse_date(s)
+    # Parse should be successful.
+    assert res.month == 6
 
 def test_parse_date_invalid():
     s = '2022-01-24'
     res = try_parse_date(s)
-    assert not res
+    # Parse fail.
+    assert res is None
 
 
 def test_get_cast_empty():

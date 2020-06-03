@@ -10,6 +10,8 @@ def safe_escape_string(s):
     return re.sub('[^-|.:_A-Za-z0-9 ]+', '', str(s))
 
 
+
+
 def _render_value(value):
     if value.get("isNull"):
         return None
@@ -110,11 +112,16 @@ def quote_escape(x):
     return parse.quote(str(x), '| @:')
 
 
+
 def try_parse_date(s):
     try:
         return datetime.strptime(s, "%Y-%m-%dT%H:%M:%S.%fZ")
     except:
-        return None
+        try:
+            s = s.split('.')[0] # Strip ms if present.
+            return datetime.strptime(s, '%Y-%m-%d %H:%M:%S')
+        except:
+            return None
 
 
 def stringify_for_data_api_query(x, manual_escape=False):
